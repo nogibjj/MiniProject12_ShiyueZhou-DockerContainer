@@ -1,8 +1,22 @@
+# Python Script interacting with SQL Database
+## CICD pipeline ##
 [![CI](https://github.com/nogibjj/MiniProject5-sql-_ShiyueZhou/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/MiniProject5-sql-_ShiyueZhou/actions/workflows/cicd.yml)
 
+## Database connection##
+**1. mylib/extract.py:**  
+ This script extracts a CSV file from a specified URL and stores it in the file_path as data/murder_2015_final.csv.  
 
+**2. mylib/transform_load.py**   
+ This script runs the load function to transform the extracted CSV into an SQLite database (Murder2015.db), making the data accessible for SQL queries. 
+
+## CRUD operations ##  
+**3. mylib/query.py**  
+ This script connects to the Murder2015.db database and runs functions to perform basic CRUD (Create, Read, Update, Delete) operations on the data.  
+
+ ## Screenshot or log of successful database operations##
+-- successful database query creation:
 ![requirements](dbQueryCreateSuccessfully.png)
-
+-- successful database operations in the main script:
 ![requirements](successfulDatabaseOperations_in_main.png)
 
 
