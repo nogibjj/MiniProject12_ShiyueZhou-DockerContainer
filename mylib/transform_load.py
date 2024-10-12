@@ -6,9 +6,12 @@ avg_FPro_products,avg_distance_root,ingred_normalization_term,
 semantic_tree_name,semantic_tree_node
 """
 
-import sqlite3
+#import sqlite3
 import csv
 import os
+from databricks import sql
+import pandas as pd
+from dotenv import load_dotenv
 
 
 # load the csv file and insert into a new sqlite3 database
@@ -19,13 +22,38 @@ def load(dataset="data/murder_2015_final.csv"):
     print(os.getcwd())
     payload = csv.reader(open(dataset, newline=""), delimiter=",")
     next(payload)
-    conn = sqlite3.connect("Murder2015.db")
-    c = conn.cursor()
-    c.execute("DROP TABLE IF EXISTS Murder2015")
-    c.execute("""CREATE TABLE Murder2015 
-              (city, state, murders2014, murders2015, change)""")
-    # insert
-    c.executemany("INSERT INTO Murder2015 VALUES (?, ?, ?, ?, ?)", payload)
-    conn.commit()
-    conn.close()
-    return "Murder2015.db"
+
+    load_dotenv()
+    server_h = os.getenv("sql_server_host")
+    access_token = os.getenv("databricks_api_key")
+    http_path = os.getenv("sql_http_path")
+    with sql.connect(
+        server_hostname=server_h,
+        http_path=http_path,
+        access_token=access_token,
+    ) as connection:
+
+        # conn = sqlite3.connect("Murder2015.db")
+        c = connection.cursor()
+        c.execute("DROP TABLE IF EXISTS Murder2015")
+        result = c.fetchall()
+        if not result:
+            c.execute(
+                """CREATE TABLE IF NOT EXISTS  Murder2015(
+                    city string, 
+                    state_s string, 
+                    murders2014 int, 
+                    murders2015 int, 
+                    change int
+                )"""
+            )
+        # insert
+        c.executemany("INSERT INTO Murder2015 VALUES (?, ?, ?, ?, ?)", payload)
+        connection.commit()
+        connection.close()
+        return "Murder2015.db"
+        #return "success"
+
+
+if __name__ == "__main__":
+    load()
