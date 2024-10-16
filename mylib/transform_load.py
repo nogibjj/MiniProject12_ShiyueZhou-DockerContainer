@@ -10,7 +10,6 @@ semantic_tree_name,semantic_tree_node
 import csv
 import os
 from databricks import sql
-import pandas as pd
 from dotenv import load_dotenv
 
 
