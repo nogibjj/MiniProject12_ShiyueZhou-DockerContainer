@@ -50,7 +50,7 @@ def load(dataset="data/murder_2015_final.csv"):
         c.executemany("INSERT INTO Murder2015 VALUES (?, ?, ?, ?, ?)", payload)
         connection.commit()
         connection.close()
-        return "Murder2015.db"
+        return "Load success"
         #return "success"
 
 
