@@ -52,9 +52,9 @@ ORDER BY average_murdersChange_perState DESC;
 
 def query():
     load_dotenv()
-    server_h = os.getenv("sql_server_host")
-    access_token = os.getenv("databricks_api_key")
-    http_path = os.getenv("sql_http_path")
+    server_h = os.getenv("SQL_SERVER_HOST")
+    access_token = os.getenv("DATABRICKS_API_KEY")
+    http_path = os.getenv("SQL_HTTP_PATH")
     with sql.connect(
         server_hostname=server_h,
         http_path=http_path,
