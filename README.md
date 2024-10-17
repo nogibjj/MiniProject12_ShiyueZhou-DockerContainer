@@ -17,7 +17,7 @@ This script connects to the Murder2015 table in the Databricks database and exec
 -- successful create/connect in DataBricks(external database):
 ![requirements](ConnectToDataBricks.png)
 -- successful testing the SQLQuery (a complex SQL query involving joins, aggregation, and sorting)in DataBricks:
-![requirements](testSQLQuery_DataBricks.png)
+![requirements](test_SQLQuery_DataBricks.png)
 
 
 
