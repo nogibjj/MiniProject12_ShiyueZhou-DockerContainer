@@ -6,7 +6,7 @@ from mylib.extract import extract
 from mylib.query import query
 import os
 from databricks import sql
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 def test_extract():
     # Test the extract function
