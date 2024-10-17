@@ -15,10 +15,10 @@ from dotenv import load_dotenv
 
 # load the csv file and insert into a new sqlite3 database
 def load(dataset="data/murder_2015_final.csv"):
-    """ "Transforms and Loads data into the local SQLite3 database"""
+    """ Transforms and Loads data into the local SQLite3 database"""
 
     # prints the full working directory and path
-    print(os.getcwd())
+    #print(os.getcwd())
     payload = csv.reader(open(dataset, newline=""), delimiter=",")
     next(payload)
 
@@ -48,8 +48,8 @@ def load(dataset="data/murder_2015_final.csv"):
             )
         # insert
         c.executemany("INSERT INTO Murder2015 VALUES (?, ?, ?, ?, ?)", payload)
-        connection.commit()
-        connection.close()
+        #c.commit()
+        c.close()
         return "Load success"
         #return "success"
 

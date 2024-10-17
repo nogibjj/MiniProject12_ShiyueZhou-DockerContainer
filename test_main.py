@@ -16,7 +16,7 @@ def test_extract():
     
 def test_transform():
     # Load environment variables for Databricks
-    load_dotenv()
+    #load_dotenv()
     server_h = os.getenv("SQL_SERVER_HOST")
     access_token = os.getenv("DATABRICKS_API_KEY")
     http_path = os.getenv("SQL_HTTP_PATH")
