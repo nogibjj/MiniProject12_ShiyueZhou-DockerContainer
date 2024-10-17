@@ -1,23 +1,23 @@
 # Python Script interacting with SQL Database
 ## CICD pipeline ##
-[![CI](https://github.com/nogibjj/MiniProject5-sql-_ShiyueZhou/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/MiniProject5-sql-_ShiyueZhou/actions/workflows/cicd.yml)
+[![CI](https://github.com/nogibjj/MiniProject6_ShiyueZhou/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/MiniProject6_ShiyueZhou/actions/workflows/cicd.yml)
 
 ## Database connection##
 **1. mylib/extract.py:**  
- This script extracts a CSV file from a specified URL and stores it in the file_path as data/murder_2015_final.csv.  
+This script is responsible for extracting a CSV file from a specified URL and saving it to the local file system at data/murder_2015_final.csv. The data is preprocessed and prepared for further operations such as loading and querying.
 
 **2. mylib/transform_load.py**   
- This script runs the load function to transform the extracted CSV into an SQLite database (Murder2015.db), making the data accessible for SQL queries. 
+This script runs the load function, which takes the extracted CSV and inserts it into an SQL table named Murder2015 in an external Databricks database. The data is now structured and ready for SQL-based analysis, making it easily accessible for subsequent queries.
 
 ## CRUD operations ##  
 **3. mylib/query.py**  
- This script connects to the Murder2015.db database and runs functions to perform basic CRUD (Create, Read, Update, Delete) operations on the data.  
+This script connects to the Murder2015 table in the Databricks database and executes SQL queries that perform operations. It runs a complex query involving joins, aggregation, and sorting, enabling detailed analysis and manipulation of the data.
 
  ## Screenshot or log of successful database operations##
--- successful database query creation:
-![requirements](dbQueryCreateSuccessfully.png)
--- successful database operations in the main script:
-![requirements](successfulDatabaseOperations_in_main.png)
+-- successful create/connect in DataBricks(external database):
+![requirements](ConnectToDataBricks.png)
+-- successful testing the SQLQuery (a complex SQL query involving joins, aggregation, and sorting)in DataBricks:
+![requirements](testSQLQuery_DataBricks.png)
 
 
 
