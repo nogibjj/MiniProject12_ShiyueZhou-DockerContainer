@@ -9,7 +9,7 @@ This script is responsible for extracting a CSV file from a specified URL and sa
 **2. mylib/transform_load.py**   
 This script runs the load function, which takes the extracted CSV and inserts it into an SQL table named Murder2015 in an external Databricks database. The data is now structured and ready for SQL-based analysis, making it easily accessible for subsequent queries.
 
-## CRUD operations ##  
+## SQL operations ##  
 **3. mylib/query.py**  
 This script connects to the Murder2015 table in the Databricks database and executes SQL queries that perform operations. It runs a complex query involving joins, aggregation, and sorting, enabling detailed analysis and manipulation of the data.
 
