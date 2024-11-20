@@ -18,9 +18,8 @@ jobs:
           python-version: '3.10'
       - name: Set up Environment Variables
         run: |
-          echo "SQL_SERVER_HOST=${{ secrets.SQL_SERVER_HOST }}" >> $GITHUB_ENV
-          echo "SQL_HTTP_PATH=${{ secrets.SQL_HTTP_PATH }}" >> $GITHUB_ENV
-          echo "DATABRICKS_API_KEY=${{ secrets.DATABRICKS_API_KEY }}" >> $GITHUB_ENV
+          echo "DOCKER_NAME=${{ secrets.DOCKER_NAME }}" >> $GITHUB_ENV
+          echo "SQL_HTTP_PATH=${{ secrets.DOCKER_ACCESS_TOKEN }}" >> $GITHUB_ENV
       - name: install packages
         run: make install
       - name: lint
