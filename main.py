@@ -1,19 +1,10 @@
-"""
-ETL-Query script
-"""
+from flask import Flask
 
-from mylib.extract import extract
-from mylib.transform_load import load
-from mylib.query import query
+app = Flask(__name__)
 
-# Extract
-print("Extracting data...")
-extract()
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
-# # Transform and load
-print("Transforming data...")
-load()
-
-# # Query
-print("Querying data...")
-query()
+if __name__ == '__main__':
+    app.run(debug=True)
