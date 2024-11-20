@@ -2,6 +2,7 @@
 ## CICD pipeline ##
 
 ## Docker ##
+docker login -u cynthiashiyue
 ![Image](image/image1.png)
 ![Image](image/image2.png)
 ![Image](image/image3.png)
