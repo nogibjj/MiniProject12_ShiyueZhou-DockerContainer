@@ -8,7 +8,7 @@ build:
 
 # Run the Docker container
 run:
-	docker run -p 5000:5000 $(IMAGE_NAME)
+	docker run -p 8080:8080 $(IMAGE_NAME)
 
 # Remove the Docker image
 clean:
@@ -30,3 +30,7 @@ login:
 
 pull: 
 	docker pull ${DOCKER_ID_USER}/$(IMAGE_NAME)
+
+
+all:
+	build push
