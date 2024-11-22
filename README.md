@@ -1,5 +1,6 @@
 # MiniProject12_DockerContainer
 ## CICD pipeline ##
+[![Build and Push Docker Image](https://github.com/nogibjj/MiniProject12_ShiyueZhou-DockerContainer/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/MiniProject12_ShiyueZhou-DockerContainer/actions/workflows/cicd.yml)
 
 ## Docker ##
 docker login -u cynthiashiyue
@@ -11,6 +12,7 @@ docker login -u cynthiashiyue
 http://127.0.0.1:8080/graddata
 ![Image](image/web1.png)
 
-## Grad data ##
+## Stock Price data ##
+Can change the ticker name to get different stock price
 http://localhost:8080/stockprice/UBS
 ![Image](image/web2.png)
