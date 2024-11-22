@@ -41,3 +41,5 @@ pull:
 
 
 all: build stop_conflict run push pull
+
+
