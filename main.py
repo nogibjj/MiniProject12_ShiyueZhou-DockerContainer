@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, render_template_string
 import pandas as pd
 from mylib.extract import get_current_price
 
@@ -42,66 +42,93 @@ def show_data():
     return combined_html
 
 
-@app.route("/stockprice/<ticker>", methods=["GET"])
-def stock_price(ticker):
+@app.route("/stockprice", methods=["GET", "POST"])
+def stock_price_form():
     """
-    Get the current stock price for a given ticker and return as an HTML table.
-
-    URL format: /stockprice/<ticker>
-    Example: /stockprice/UBS
+    Displays a form to enter a stock ticker and shows the stock price information if submitted.
     """
-    # Fetch the stock price information
-    ticker = ticker.upper()
-    dist = get_current_price(ticker)
+    # Initialize the table as empty
+    table_html = ""
 
-    if not dist:
-        return f"<h1>Data for ticker '{ticker}' is not available.</h1>", 404
+    if request.method == "POST":
+        # Get the ticker from the form and convert to uppercase
+        ticker = request.form.get("ticker").upper()
 
-    # Create an HTML table dynamically
-    html = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Stock Price for {dist['ticker']}</title>
-        <style>
-            table {{
-                width: 50%;
-                margin: 20px auto;
-                border-collapse: collapse;
-            }}
-            table, th, td {{
-                border: 1px solid black;
-            }}
-            th, td {{
-                padding: 10px;
-                text-align: center;
-            }}
-            h1 {{
-                text-align: center;
-            }}
-        </style>
-    </head>
-    <body>
-        <h1>Stock Price for {dist['ticker']}</h1>
-        <table>
-            <tr>
-                <th>Ticker</th>
-                <th>Date/Time</th>
-                <th>Stock Price</th>
-            </tr>
-            <tr>
-                <td>{dist['ticker']}</td>
-                <td>{dist['date_time']}</td>
-                <td>${dist['price']:.2f}</td>
-            </tr>
-        </table>
-    </body>
-    </html>
-    """
-    return html
+        # Fetch stock price data
+        dist = get_current_price(ticker)
+
+        if dist:
+            # Generate the table HTML if data is found
+            table_html = f"""
+            <table>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Date/Time</th>
+                    <th>Stock Price</th>
+                </tr>
+                <tr>
+                    <td>{dist['ticker']}</td>
+                    <td>{dist['date_time']}</td>
+                    <td>${dist['price']:.2f}</td>
+                </tr>
+            </table>
+            """
+        else:
+            # Show an error message if the ticker is invalid
+            table_html = f"<h2>Data for ticker '{ticker}' is not available.</h2>"
+
+    # Render the final HTML with the form and table (if available)
+    return render_template_string(BASE_HTML, table=table_html)
     
+BASE_HTML = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Lookup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Stock Ticker</h1>
+    <form method="POST">
+        <input type="text" name="ticker" placeholder="Enter stock ticker" required>
+        <button type="submit">Get Stock Price</button>
+    </form>
+    <div>
+        {% if table %}
+            {{ table|safe }}
+        {% endif %}
+    </div>
+</body>
+</html>
+"""
+
+
 
 # if __name__ == "__main__":
 #     app.run(debug=True)
