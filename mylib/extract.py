@@ -1,41 +1,40 @@
-# """
-# Extract a dataset from a URL like Kaggle or data.gov. 
-# JSON or CSV formats tend to work well
+from yahoo_fin import stock_info as si
+from datetime import datetime
+from typing import Dict
 
-# food dataset
-# """
-# import os
-# import requests
+def get_current_price(ticker: str) -> Dict[str, str]:
+    """
+    Fetches the current stock price for a given ticker and returns it with the date and time.
 
+    Parameters:
+    - ticker (str): The stock ticker symbol (e.g., "AAPL" for Apple, "UBS" for UBS Group AG).
 
+    Returns:
+    - dict: A dictionary containing the ticker, date/time, and the current stock price.
+    """
+    try:
+        # Get the live price
+        price = si.get_live_price(ticker)
+        
+        # Get the current date and time
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Return as a dictionary
+        return {
+            "ticker": ticker,
+            "date_time": current_time,
+            "price": round(price, 2),  # Round price to 2 decimal places
+        }
+    except Exception as e:
+        print(f"Error fetching price for {ticker}: {e}")
+        return {
+            "ticker": ticker,
+            "date_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "price": None,
+        }
 
-# def extract(
-#     url="https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/murder_2016/murder_2015_final.csv",
-#     file_path="data/murder_2015_final.csv",
-# ):
-#      # Create the directory if it doesn't exist
-#     os.makedirs(os.path.dirname(file_path), exist_ok=True)
-    
-#     # Fetch the content from the URL
-#     response = requests.get(url)
-    
-#     # Check for valid response status
-#     if response.status_code == 200:
-#         # Save the content to the specified file path
-#         with open(file_path, "wb") as f:
-#             f.write(response.content)
-#         print(f"File successfully downloaded to {file_path}")
-#     else:
-#         print(f"Failed to retrieve the file. HTTP Status Code: {response.status_code}")
-    
-#     return file_path   
-    
-#     # """ "Extract a url to a file path"""
-#     # with requests.get(url) as r:
-#     #     with open(file_path, "wb") as f:
-#     #         f.write(r.content)
-#     # return file_path
-
-
-# if __name__ == "__main__":
-#     extract()
+if __name__ == "__main__":
+    # Example usage
+    ticker = "UBS"
+    result = get_current_price(ticker)
+    print(result)

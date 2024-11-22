@@ -13,4 +13,10 @@
 # databricks-sql-connector
 # setuptools
 
+#
 flask == 2.2.5
+
+#
+yahoo_fin
+typing
+datetime
