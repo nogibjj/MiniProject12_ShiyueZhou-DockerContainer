@@ -1,5 +1,4 @@
 # MiniProject12_DockerContainer
-## CICD pipeline ##
 [![Build and Push Docker Image](https://github.com/nogibjj/MiniProject12_ShiyueZhou-DockerContainer/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/MiniProject12_ShiyueZhou-DockerContainer/actions/workflows/cicd.yml)
 
 # Docker Workflow Summary
